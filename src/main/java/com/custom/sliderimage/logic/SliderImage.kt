@@ -60,6 +60,26 @@ class SliderImage : LinearLayout {
         return indicator
     }
 
+    fun setTimeToSlide(time: INT){
+        val current_position = 0
+        val size = items.size()
+        val timerTask = object : TimerTask() {
+            override fun run() {
+                runOnUiThread { 
+                    current_position++
+                    if(current_position>size){
+                        current_position = 0
+                    }else{
+                        vewPagerSlider.setCurrentItem(position, true)
+                    }
+                }
+            }
+        }
+
+        timer = Timer()
+        timer.schedule(timerTask, 0, time)
+    }
+    
     fun getItems(): ArrayList<String> {
         return (vewPagerSlider.adapter as ViewPagerAdapter).items
     }
